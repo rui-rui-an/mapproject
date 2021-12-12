@@ -1,5 +1,9 @@
 <template>
-  <div class="about">about</div>
+  <div class="user">
+    <div>
+      User界面的东西
+    </div>
+  </div>
 </template>
 
 <script>
