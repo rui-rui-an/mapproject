@@ -7,7 +7,7 @@
     <div class="main-content">
       <div id="container">
       </div>
-      <div :class="{open:openRight}">
+      <div id="userRouter" :class="{open:openRight}">
         <router-view>
         </router-view>
       </div>
@@ -31,8 +31,20 @@ export default {
   },
   mounted() {
     this.initMap()
+    this.clickOtherbackHome()
   },
   methods: {
+    clickOtherbackHome(){
+      document.addEventListener('mouseup', e =>{
+        const userCon = document.querySelector('#userRouter')
+        // if(e.target !== userCon){
+        //   this.$router.push('/')
+        // }
+         if(!userCon.contains(e.target)){
+          this.$router.push('/')
+        }
+      })
+    },
     initMap(){
        var map = new AMap.Map('container', {
         center: [116.397428, 39.90923],
@@ -44,7 +56,14 @@ export default {
       this.$message.success('未处理该事件')
     },
     toUser(){
-      this.$router.push('user')
+      // console.log(this.$route);
+      // console.log(this.openRight);
+      // if(this.$route.name !== "Home"){
+      //    this.$router.push('/')
+      // }else{
+        this.$router.push('user')
+      // }
+      
     },
   },
   created () {}
