@@ -11,7 +11,7 @@ const routes = [
     component: Home,
     children:[
       {
-        path: "/user",
+        path: "user",
         name: "User",
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
@@ -28,5 +28,11 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+// 解决路由重复跳转报错问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 export default router;

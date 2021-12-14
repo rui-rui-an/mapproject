@@ -7,11 +7,11 @@
     <div class="main-content">
       <div id="container">
       </div>
-      <div id="userRouter" :class="{open:openRight}">
+    </div>
+    <div id="userRouter" class="user-router" :class="{open:openRight}">
         <router-view>
         </router-view>
       </div>
-    </div>
     
   </div>
 </template>
@@ -20,14 +20,20 @@
 export default {
   data () {
     return {
+      openRight: false
     }
   },
   watch:{
-  },
-  computed:{
-    openRight(){
-      return this.$route.name !== "Home"
-    }
+    $route(val){
+      console.log(val);
+      console.log(val.name!=='Home');
+      if(val.name!=='Home'){
+        this.openRight = true
+      }else{
+        this.openRight = false
+      }
+      console.log('this.openRight',this.openRight);
+    },
   },
   mounted() {
     this.initMap()
@@ -56,13 +62,12 @@ export default {
       this.$message.success('未处理该事件')
     },
     toUser(){
-      // console.log(this.$route);
-      // console.log(this.openRight);
-      // if(this.$route.name !== "Home"){
-      //    this.$router.push('/')
-      // }else{
-        this.$router.push('user')
-      // }
+      if(!this.openRight){
+        this.$router.push('/user')
+      }else{
+        this.$router.push('/')
+      }
+        
       
     },
   },
@@ -99,8 +104,18 @@ export default {
         cursor: pointer;
       }
   }
-  .open{
+  .user-router{
+    position: fixed;
     width: 300px;
+    top: 0;
+    right: -300px;
+    bottom: 0;
+    z-index: 99;
+    background-color: red;
+    transition: all 1s;
+  }
+  .open{
+    right: 0
   }
   .main-content{
     display: flex;

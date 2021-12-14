@@ -12,8 +12,12 @@ export default {
     return {}
   },
   methods: {},
-  created () {}
+  created () {},
+  mounted() {
+    // console.log(this.$route);
+  },
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+</style>
