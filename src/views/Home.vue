@@ -24,16 +24,17 @@ export default {
     }
   },
   watch:{
-    $route(val){
-      console.log(val);
-      console.log(val.name!=='Home');
-      if(val.name!=='Home'){
-        this.openRight = true
-      }else{
-        this.openRight = false
-      }
-      console.log('this.openRight',this.openRight);
-    },
+    // 点击这个用户按钮的时候，会执行clickOtherbackHome和toUser两个方法，所以，会有bug存在。得解决一下
+    // $route(val){
+    //   console.log(val);
+    //   console.log(val.name!=='Home');
+    //   if(val.name!=='Home'){
+    //     this.openRight = true
+    //   }else{
+    //     this.openRight = false
+    //   }
+    //   console.log('this.openRight',this.openRight);
+    // },
   },
   mounted() {
     this.initMap()
@@ -62,11 +63,11 @@ export default {
       this.$message.success('未处理该事件')
     },
     toUser(){
-      if(!this.openRight){
+      // if(!this.openRight){
         this.$router.push('/user')
-      }else{
-        this.$router.push('/')
-      }
+      // }else{
+      //   this.$router.push('/')
+      // }
         
       
     },
