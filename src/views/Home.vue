@@ -3,6 +3,7 @@
     <div class="operate">
       <div class="resert" @click="resertCars"><span>预约用车</span></div>
       <i @click="toUser" class="user el-icon-user-solid"></i>
+      <i @click="toOther" class="other el-icon-tickets"></i>
     </div>
     <div class="main-content">
       <div id="container">
@@ -20,21 +21,12 @@
 export default {
   data () {
     return {
-      openRight: false
     }
   },
-  watch:{
-    // 点击这个用户按钮的时候，会执行clickOtherbackHome和toUser两个方法，所以，会有bug存在。得解决一下
-    // $route(val){
-    //   console.log(val);
-    //   console.log(val.name!=='Home');
-    //   if(val.name!=='Home'){
-    //     this.openRight = true
-    //   }else{
-    //     this.openRight = false
-    //   }
-    //   console.log('this.openRight',this.openRight);
-    // },
+  computed:{
+    openRight(){
+      return this.$route.name!=='Home'
+    }
   },
   mounted() {
     this.initMap()
@@ -43,11 +35,9 @@ export default {
   methods: {
     clickOtherbackHome(){
       document.addEventListener('mouseup', e =>{
+        const userclick = document.querySelector('.user')
         const userCon = document.querySelector('#userRouter')
-        // if(e.target !== userCon){
-        //   this.$router.push('/')
-        // }
-         if(!userCon.contains(e.target)){
+         if(!userCon.contains(e.target) && e.target !== userclick){
           this.$router.push('/')
         }
       })
@@ -63,13 +53,17 @@ export default {
       this.$message.success('未处理该事件')
     },
     toUser(){
-      // if(!this.openRight){
+      console.log(this.openRight);
+      if(!this.openRight){
         this.$router.push('/user')
-      // }else{
-      //   this.$router.push('/')
-      // }
+      }else{
+        this.$router.push('/')
+      }
         
       
+    },
+    toOther(){
+      console.log(111);
     },
   },
   created () {}
@@ -101,7 +95,10 @@ export default {
       }
     }
     .user{
-        margin-left: 10px;
+        margin: 10px;
+        cursor: pointer;
+      }
+      .other{
         cursor: pointer;
       }
   }
